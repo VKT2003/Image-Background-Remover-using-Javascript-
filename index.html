@@ -1,1 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Remover</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-color: #121212;
+            color: #fff;
+            scroll
+        }
+        html {
+    scroll-behavior: smooth;
+}
 
+        header, footer {
+            background-color: #1e1e1e;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1, footer p {
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        footer p {
+            margin-top: 10px;
+            color: #ccc;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        form {
+            display: inline-block;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #50b849;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #result {
+            margin-top: 20px;
+            display: none;
+        }
+
+        #result img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #progress {
+            margin-top: 20px;
+            display: none;
+            font-size: 18px;
+            color: #4a90e2;
+        }
+
+        .info {
+            margin-top: 30px;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .info h2 {
+            color: #4a90e2;
+        }
+
+        .info p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .info img {
+            width: 300px;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 10px 10px 0px rgba(87, 86, 88, 0.5);
+        }
+
+        marquee {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #4a90e2;
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .faq {
+            margin-top: 30px;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .faq h2 {
+            color: #4a90e2;
+        }
+
+        .faq p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            margin-top: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .testimonials {
+            margin-top: 30px;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .testimonials h2 {
+            color: #4a90e2;
+        }
+
+        .testimonials p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌀 Background Remover 🏹</h1>
+    </header>
+    <nav>
+        <a href="#upload-form">Upload</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <marquee behavior="scroll" direction="left">Welcome to the Background Remover Tool! Easily remove backgrounds from your images for free!</marquee>
+    <main>
+        <form id="upload-form">
+            <label for="image-input">Choose Image</label>
+            <input type="file" id="image-input" accept="image/*" required>
+            <button type="submit" id="submit-button">Remove Background</button>
+        </form>
+        <div id="progress" class="spinner"></div>
+        <div id="result">
+            <h2>Result:</h2>
+            <img id="result-image" alt="Result will appear here">
+        </div>
+        <div class="info">
+            <p>This website helps to remove backgrounds from any images.</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0Yx_FXuXNH4hbeJ11Ajc5lSWtpTBM6m_y9F2_7zmS8mU3sH2b-Td-aew&s=10" alt="Sample Image">
+        </div>
+        <div class="info">
+            <h2 id="about">About This Tool</h2>
+            <p>This tool uses the Remove.bg API to remove the background from your images. Simply upload an image, and our tool will process it to remove the background, making it transparent. This can be useful for creating professional-looking photos, profile pictures, and more.</p>
+            <p>Note: Please ensure you have a stable internet connection and that your image file is in a supported format (e.g., JPEG, PNG).</p>
+        </div>
+        <div class="faq">
+            <h2 id="faq">Frequently Asked Questions</h2>
+            <p><strong>Q1: What file formats are supported?</strong></p>
+            <p>A: Supported formats are JPEG and PNG.</p>
+            <p><strong>Q2: How long does it take to remove the background?</strong></p>
+            <p>A: The process usually takes a few seconds to a minute, depending on the image size and your internet speed.</p>
+            <p><strong>Q3: Is the service free?</strong></p>
+            <p>A: Yes, the basic background removal service is free.</p>
+        </div>
+        <div class="testimonials">
+            <h2 id="testimonials">Testimonials</h2>
+            <p>"This tool is amazing! It made my profile pictures look so professional." - Vishal</p>
+            <p>"Quick and easy background removal. Highly recommend it!" - Harsh</p>
+        </div>
+    </main>
+    <footer>
+        <p id="contact">Contact: vishaltiwari.up2019@gmail.com | Mob: 9369358493</p>
+    </footer>
+    <script>
+    document.getElementById('upload-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const fileInput = document.getElementById('image-input');
+        const file = fileInput.files[0];
+        const progress = document.getElementById('progress');
+        const result = document.getElementById('result');
+        const submitButton = document.getElementById('submit-button');
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('image_file', file);
+
+            progress.style.display = 'inline-block';  // Show spinner
+            result.style.display = 'none';
+            submitButton.disabled = true;
+
+            fetch('https://api.remove.bg/v1.0/removebg', {
+                method: 'POST',
+                headers: {
+                    'X-Api-Key': 'mVkvKm4NX2orhYTRbD9qrX4N'
+                },
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const img = document.getElementById('result-image');
+                img.src = URL.createObjectURL(blob);
+                progress.style.display = 'none';  // Hide spinner
+                result.style.display = 'block';
+                submitButton.disabled = false;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                progress.style.display = 'none';  // Hide spinner
+                const progressText = document.createElement('p');
+                progressText.style.color = 'red';
+                progressText.textContent = 'An error occurred. Please try again.';
+                progress.parentElement.appendChild(progressText);
+                submitButton.disabled = false;
+            });
+        }
+    });
+</script>
+</body>
+</html>
+   
